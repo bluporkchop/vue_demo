@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>新增商品頁面</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>新增商品</h1>
+        <form @submit.prevent="addProduct">
+            <label for="productID">商品編號:</label>
+            <input type="text" id="productID" v-model="newProduct.id" required>
+            <br>
+
+            <label for="productName">商品名稱:</label>
+            <input type="text" id="productName" v-model="newProduct.name" required>
+            <br>
+
+            <label for="productPrice">售價:</label>
+            <input type="number" id="productPrice" v-model="newProduct.price" required>
+            <br>
+
+            <label for="productStock">庫存:</label>
+            <input type="number" id="productStock" v-model="newProduct.stock" required>
+            <br>
+
+            <button type="submit">送出</button>
+        </form>
+
+        <h2>商品列表</h2>
+        <ul>
+            <li v-for="product in products">
+                商品編號: {{ product.id }} - 商品名稱: {{ product.name }} - 售價: {{ product.price }} - 庫存: {{ product.stock }}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                newProduct: {
+                    id: '',
+                    name: '',
+                    price: '',
+                    stock: ''
+                },
+                products: []
+            },
+            methods: {
+                addProduct() {
+                    // 新增商品
+                    this.products.push({ ...this.newProduct });
+                    // 清空
+                    this.newProduct = {
+                        id: '',
+                        name: '',
+                        price: '',
+                        stock: ''
+                    };
+                }
+            }
+        });
+    </script>
+</body>
+</html>
